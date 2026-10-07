@@ -4,10 +4,10 @@ patches {
     about {
         name = "Wibuku Morphe Patches"
         description = "Wibuku patches by zaq, for use with Morphe."
-        source = "https://github.com/<owner>/wibuku-morphe-patches"
+        source = "https://github.com/fynnaly/test-morphe-patch"
         author = "zaq"
-        contact = "https://github.com/<owner>"
-        website = "https://morphe.software/add-source?github=<owner>/wibuku-morphe-patches"
+        contact = "https://github.com/fynnaly"
+        website = "https://morphe.software/add-source?github=fynnaly/test-morphe-patch"
         license = "GPLv3"
     }
 }

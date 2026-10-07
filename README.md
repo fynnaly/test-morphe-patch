@@ -1,20 +1,17 @@
 # Wibuku Morphe Patches
 
-[![Release](https://img.shields.io/github/v/release/<owner>/wibuku-morphe-patches)](https://github.com/<owner>/wibuku-morphe-patches/releases/latest)
-[![Build](https://img.shields.io/github/actions/workflow/status/<owner>/wibuku-morphe-patches/release.yml?label=build)](https://github.com/<owner>/wibuku-morphe-patches/actions/workflows/release.yml)
-[![License](https://img.shields.io/github/license/<owner>/wibuku-morphe-patches)](LICENSE)
+[![Release](https://img.shields.io/github/v/release/fynnaly/test-morphe-patch)](https://github.com/fynnaly/test-morphe-patch/releases/latest)
+[![Build](https://img.shields.io/github/actions/workflow/status/fynnaly/test-morphe-patch/release.yml?label=build)](https://github.com/fynnaly/test-morphe-patch/actions/workflows/release.yml)
+[![License](https://img.shields.io/github/license/fynnaly/test-morphe-patch)](LICENSE)
 
 My collection of Wibuku patches for [Morphe](https://morphe.software). Each patch can be selected separately; supported versions are listed below.
 
-> Replace every `<owner>` in this file, `patches/build.gradle.kts` and
-> `settings.gradle.kts` with your GitHub username or org before pushing.
-
 ## Installation
 
-[Add this source to Morphe](https://morphe.software/add-source?github=<owner>/wibuku-morphe-patches), or add the repository manually:
+[Add this source to Morphe](https://morphe.software/add-source?github=fynnaly/test-morphe-patch), or add the repository manually:
 
 ```text
-https://github.com/<owner>/wibuku-morphe-patches
+https://github.com/fynnaly/test-morphe-patch
 ```
 
 Choose a supported app version, select the patches you want and patch a clean APK or XAPK. After a source update, rebuild the app to apply the changes.
@@ -22,7 +19,7 @@ Choose a supported app version, select the patches you want and patch a clean AP
 ## Patches
 
 <!-- PATCHES_START -->
-> No release published yet. Push `feat(wibuku): ...` to `main` and the release workflow will build the first `.mpp` here.
+> No release published yet. Push `feat(wibuku): ...` to `master` and the release workflow will build the first `.mpp` here.
 <!-- PATCHES_END -->
 
 ### Wibuku

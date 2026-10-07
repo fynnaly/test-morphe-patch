@@ -1,6 +1,6 @@
 {
   "branches": [
-    "main",
+    "master",
     {
       "name": "dev",
       "prerelease": true
@@ -126,7 +126,7 @@
       {
         "backmergeBranches": [
           {
-            "from": "main",
+            "from": "master",
             "to": "dev"
           }
         ],
