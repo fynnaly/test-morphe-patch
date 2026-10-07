@@ -1,3 +1,9 @@
+## [1.0.1](https://github.com/fynnaly/test-morphe-patch/compare/v1.0.0...v1.0.1) (2026-10-07)
+
+### 🐛 Bug Fixes
+
+* **wibuku:** redirect GMS bind transport to MicroG-RE instead of metadata only ([48db272](https://github.com/fynnaly/test-morphe-patch/commit/48db2728640ffff7625954a899d35f85bcab95ba))
+
 ## 1.0.0 (2026-10-07)
 
 ### 🐛 Bug Fixes

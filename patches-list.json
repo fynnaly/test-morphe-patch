@@ -1,10 +1,10 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "patches": [
     {
       "name": "Google sign-in via MicroG-RE",
-      "description": "Routes Google sign-in through MicroG-RE 7.1.1+. Requires app.revanced.android.gms with the same Google account. Experimental; device testing needed.",
+      "description": "Routes Google sign-in through MicroG-RE 7.1.1+. Requires app.revanced.android.gms with the same Google account.",
       "default": true,
       "dependencies": [
         "ResourcePatch"
