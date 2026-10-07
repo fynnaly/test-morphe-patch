@@ -70,11 +70,15 @@ def _():
     assert "AuthorizationRequest" in src
 
 
-@check("microg patch depends on resource patch")
+@check("microg patch redirects transport, not just metadata")
 def _():
     src = read("microg/WibukuMicroGSupportPatch.kt")
-    assert "dependsOn(wibukuMicroGResources)" in src
-    assert "WibukuAuthShapeFingerprint.method" in src
+    assert "authorization.START" in src and "identity.service.signin.START" in src
+    assert "app.revanced.android.gms" in src
+    assert "CHIMERA_AUTHORITY" in src and "setPackage" in src
+    assert "classDefForEach" in src
+    # availability probe forced to SUCCESS
+    assert "const/4 v0, 0x0" in src
 
 
 @check("kotlin files balance braces/parens")
