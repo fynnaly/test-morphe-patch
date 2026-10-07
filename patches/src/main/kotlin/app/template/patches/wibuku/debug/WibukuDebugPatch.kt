@@ -23,6 +23,12 @@ import app.template.patches.shared.Constants.WIBUKU_COMPATIBILITY
 // - "WIBUKU-ERR <error>"        -> ResourceResponse.getError() at the
 //   central response handler (nc1.a); empty/null means the failure never
 //   produced a server string (timeout / exception before response parse).
+// - "WIBUKU-STATUS <status>"     -> ResourceResponse.getStatus() enum name
+//   (SUCCESS / FAILED / UNAUTHORIZED / UNSESSION / RETRY / WAIT / ...):
+//   tells whether the server rejected, the session lapsed, or a retry was asked.
+// - "WIBUKU-CODE <code>"         -> ResourceResponse.getCode() server code string.
+// - "WIBUKU-DATA <data>"         -> String.valueOf(ResourceResponse.getData());
+//   null means no payload came back with the failure.
 // - "isPremium called"          -> the premium gate is exercised on screen.
 //
 // Disabled by default; enable only for diagnosis builds.
@@ -130,6 +136,36 @@ private fun logResponseError() = """
     move-result v0
 """.trimIndent()
 
+private fun logResponseStatus() = """
+    const-string v0, "WIBUKU-STATUS"
+    invoke-virtual {p0}, Lwibuku/app/wibuku/model/network/ResourceResponse;->getStatus()Lwibuku/app/wibuku/model/network/ResourceResponse${'$'}ResponseStatus;
+    move-result-object v1
+    invoke-static {v1}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+    move-result-object v1
+    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    move-result v0
+""".trimIndent()
+
+private fun logResponseCode() = """
+    const-string v0, "WIBUKU-CODE"
+    invoke-virtual {p0}, Lwibuku/app/wibuku/model/network/ResourceResponse;->getCode()Ljava/lang/String;
+    move-result-object v1
+    invoke-static {v1}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+    move-result-object v1
+    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    move-result v0
+""".trimIndent()
+
+private fun logResponseData() = """
+    const-string v0, "WIBUKU-DATA"
+    invoke-virtual {p0}, Lwibuku/app/wibuku/model/network/ResourceResponse;->getData()Ljava/lang/Object;
+    move-result-object v1
+    invoke-static {v1}, Ljava/lang/String;->valueOf(Ljava/lang/Object;)Ljava/lang/String;
+    move-result-object v1
+    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    move-result v0
+""".trimIndent()
+
 @Suppress("unused")
 val wibukuDebugPatch = bytecodePatch(
     name = "Login tracer",
@@ -148,6 +184,9 @@ val wibukuDebugPatch = bytecodePatch(
         SplashDialogFingerprint.methodOrNull?.addInstructions(0, logDialogTitle())
         SplashDialogFingerprint.methodOrNull?.addInstructions(0, logDialogMessage())
         ResponseHandlerFingerprint.methodOrNull?.addInstructions(0, logResponseError())
+        ResponseHandlerFingerprint.methodOrNull?.addInstructions(0, logResponseStatus())
+        ResponseHandlerFingerprint.methodOrNull?.addInstructions(0, logResponseCode())
+        ResponseHandlerFingerprint.methodOrNull?.addInstructions(0, logResponseData())
         PremiumCallFingerprint.methodOrNull?.addInstructions(0, logTag("isPremium called"))
     }
 }

@@ -96,6 +96,9 @@ def _():
         assert cls in src and m in src, f"missing fingerprint {cls}{m}"
     assert "WIBUKU-DLG-MSG" in src, "missing dialog message log"
     assert "WIBUKU-ERR" in src, "missing response error log"
+    assert "WIBUKU-STATUS" in src, "missing response status log"
+    assert "WIBUKU-CODE" in src, "missing response code log"
+    assert "WIBUKU-DATA" in src, "missing response data log"
     assert "Lnc1;" in src and "ResourceResponse;" in src, "missing response handler fingerprint"
 
 
