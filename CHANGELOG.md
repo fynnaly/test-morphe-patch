@@ -1,3 +1,9 @@
+## [1.3.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.2.0...v1.3.0) (2026-10-07)
+
+### ✨ New Features
+
+* **wibuku:** log dialog message and server error in login tracer ([1afea2b](https://github.com/fynnaly/test-morphe-patch/commit/1afea2b8e624f6cb13e72cf33864f2dfe6a79286))
+
 ## [1.2.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.1.0...v1.2.0) (2026-10-07)
 
 ### ✨ New Features
