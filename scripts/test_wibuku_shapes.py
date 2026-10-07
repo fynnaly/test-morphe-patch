@@ -81,6 +81,21 @@ def _():
     assert "const/4 v0, 0x0" in src
 
 
+@check("debug tracer logs at gate entries, opt-in only")
+def _():
+    src = read("debug/WibukuDebugPatch.kt")
+    assert 'name = "Login tracer"' in src, "patch name mismatch"
+    assert "default = False".replace("False", "false") in src, "debug patch must default to false"
+    assert 'Landroid/util/Log;->e' in src, "no Log.e injection"
+    assert "addInstructions" in src, "no addInstructions call"
+    for cls, m in (
+        ("Lwibuku/app/wibuku/ui/splash/SplashFragment;", '"C0"'),
+        ("Lwibuku/app/wibuku/ui/splash/SplashFragment;", '"H0"'),
+        ("Lwibuku/app/wibuku/model/user/AppUser;", '"isPremium"'),
+    ):
+        assert cls in src and m in src, f"missing fingerprint {cls}{m}"
+
+
 @check("kotlin files balance braces/parens")
 def _():
     for path in sorted(SRC.rglob("*.kt")):
