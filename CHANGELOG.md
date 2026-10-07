@@ -1,3 +1,9 @@
+## [1.2.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.1.0...v1.2.0) (2026-10-07)
+
+### ✨ New Features
+
+* **wibuku:** extend login tracer to cover splash worker and dialogs ([5137d06](https://github.com/fynnaly/test-morphe-patch/commit/5137d063c7b91a7ccb8f40265e1b35b403df2cf6))
+
 ## [1.1.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.0.1...v1.1.0) (2026-10-07)
 
 ### ✨ New Features
