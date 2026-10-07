@@ -1,3 +1,9 @@
+## [1.1.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.0.1...v1.1.0) (2026-10-07)
+
+### ✨ New Features
+
+* **wibuku:** add opt-in login tracer for splash gate diagnosis ([8f9fa4c](https://github.com/fynnaly/test-morphe-patch/commit/8f9fa4c3acc73fa7832397511afd51aae51afc76))
+
 ## [1.0.1](https://github.com/fynnaly/test-morphe-patch/compare/v1.0.0...v1.0.1) (2026-10-07)
 
 ### 🐛 Bug Fixes
