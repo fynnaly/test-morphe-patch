@@ -94,6 +94,9 @@ def _():
         ("Lwibuku/app/wibuku/model/user/AppUser;", '"isPremium"'),
     ):
         assert cls in src and m in src, f"missing fingerprint {cls}{m}"
+    assert "WIBUKU-DLG-MSG" in src, "missing dialog message log"
+    assert "WIBUKU-ERR" in src, "missing response error log"
+    assert "Lnc1;" in src and "ResourceResponse;" in src, "missing response handler fingerprint"
 
 
 @check("kotlin files balance braces/parens")

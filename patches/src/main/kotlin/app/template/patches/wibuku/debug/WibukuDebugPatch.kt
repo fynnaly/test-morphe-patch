@@ -18,6 +18,11 @@ import app.template.patches.shared.Constants.WIBUKU_COMPATIBILITY
 //   "WIBUKU-DLG Wajib Update") or the C0/D0 animation flags never completed.
 // - "WIBUKU-DLG <title>"        -> exact dialog shown: Ooops! / Maintenance /
 //   Gagal Terhubung / Wajib Update (p0 of h5a.D is the dialog title).
+// - "WIBUKU-DLG-MSG <msg>"      -> the dialog message body (p1 of h5a.D):
+//   this is the server/network reason, e.g. session or auth failure text.
+// - "WIBUKU-ERR <error>"        -> ResourceResponse.getError() at the
+//   central response handler (nc1.a); empty/null means the failure never
+//   produced a server string (timeout / exception before response parse).
 // - "isPremium called"          -> the premium gate is exercised on screen.
 //
 // Disabled by default; enable only for diagnosis builds.
@@ -87,6 +92,15 @@ private object PremiumCallFingerprint : Fingerprint(
     parameters = emptyList(),
 )
 
+// nc1.a(ResourceResponse) is the central response handler; getError()
+// carries the server/network reason string (static method, p0 = response).
+private object ResponseHandlerFingerprint : Fingerprint(
+    returnType = "V",
+    definingClass = "Lnc1;",
+    name = "a",
+    parameters = listOf("Lwibuku/app/wibuku/model/network/ResourceResponse;"),
+)
+
 private fun logTag(tag: String) = """
     const-string v0, "WIBUKU"
     const-string v1, "$tag"
@@ -97,6 +111,21 @@ private fun logTag(tag: String) = """
 private fun logDialogTitle() = """
     const-string v0, "WIBUKU-DLG"
     move-object v1, p0
+    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    move-result v0
+""".trimIndent()
+
+private fun logDialogMessage() = """
+    const-string v0, "WIBUKU-DLG-MSG"
+    move-object v1, p1
+    invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
+    move-result v0
+""".trimIndent()
+
+private fun logResponseError() = """
+    const-string v0, "WIBUKU-ERR"
+    invoke-virtual {p0}, Lwibuku/app/wibuku/model/network/ResourceResponse;->getError()Ljava/lang/String;
+    move-result-object v1
     invoke-static {v0, v1}, Landroid/util/Log;->e(Ljava/lang/String;Ljava/lang/String;)I
     move-result v0
 """.trimIndent()
@@ -117,6 +146,8 @@ val wibukuDebugPatch = bytecodePatch(
         SplashUpdateCheckFingerprint.methodOrNull?.addInstructions(0, logTag("G0 enter"))
         SplashGateFingerprint.methodOrNull?.addInstructions(0, logTag("C0 enter"))
         SplashDialogFingerprint.methodOrNull?.addInstructions(0, logDialogTitle())
+        SplashDialogFingerprint.methodOrNull?.addInstructions(0, logDialogMessage())
+        ResponseHandlerFingerprint.methodOrNull?.addInstructions(0, logResponseError())
         PremiumCallFingerprint.methodOrNull?.addInstructions(0, logTag("isPremium called"))
     }
 }
