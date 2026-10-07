@@ -1,3 +1,9 @@
+## [1.4.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.3.0...v1.4.0) (2026-10-07)
+
+### ✨ New Features
+
+* **wibuku:** log response status, code and data in login tracer ([385181e](https://github.com/fynnaly/test-morphe-patch/commit/385181eff0c3f770f7a70a4481436610b3e01209))
+
 ## [1.3.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.2.0...v1.3.0) (2026-10-07)
 
 ### ✨ New Features
