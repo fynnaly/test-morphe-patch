@@ -19,7 +19,11 @@ Choose a supported app version, select the patches you want and patch a clean AP
 ## Patches
 
 <!-- PATCHES_START -->
-> No release published yet. Push `feat(wibuku): ...` to `master` and the release workflow will build the first `.mpp` here.
+> **[v1.0.0](https://github.com/fynnaly/test-morphe-patch/releases/tag/v1.0.0)**&nbsp;&nbsp;&middot;&nbsp;&nbsp;`master`&nbsp;&nbsp;&middot;&nbsp;&nbsp;**2 patches** across **1 app**&nbsp;&nbsp;&middot;&nbsp;&nbsp;[Full details](PATCHES.md)
+
+| # | App | Patches | Version | Package |
+|---|---|---|---|---|
+| 1 | [**Wibuku**](PATCHES.md#wibuku-wibukuappwibuku) | 2 | `1.4.5` | [`wibuku.app.wibuku`](https://play.google.com/store/apps/details?id=wibuku.app.wibuku) |
 <!-- PATCHES_END -->
 
 ### Wibuku

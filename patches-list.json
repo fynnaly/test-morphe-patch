@@ -1,5 +1,70 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "0.1.0",
-  "patches": []
+  "version": "1.0.0",
+  "patches": [
+    {
+      "name": "Google sign-in via MicroG-RE",
+      "description": "Routes Google sign-in through MicroG-RE 7.1.1+. Requires app.revanced.android.gms with the same Google account. Experimental; device testing needed.",
+      "default": true,
+      "dependencies": [
+        "ResourcePatch"
+      ],
+      "compatiblePackages": [
+        {
+          "packageName": "wibuku.app.wibuku",
+          "name": "Wibuku",
+          "description": "Nonton anime.",
+          "apkFileType": "XAPK",
+          "appIconColor": "#7C4DFF",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.4.5",
+              "versionCodes": {
+                "ARM64_V8A": 78,
+                "ARMEABI_V7A": 78,
+                "X86_64": 78,
+                "X86": 78
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
+    {
+      "name": "Premium",
+      "description": "Forces the local Premium check to always pass. Does not activate a subscription on your account; server-gated features may still require a real purchase.",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "wibuku.app.wibuku",
+          "name": "Wibuku",
+          "description": "Nonton anime.",
+          "apkFileType": "XAPK",
+          "appIconColor": "#7C4DFF",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.4.5",
+              "versionCodes": {
+                "ARM64_V8A": 78,
+                "ARMEABI_V7A": 78,
+                "X86_64": 78,
+                "X86": 78
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    }
+  ]
 }
