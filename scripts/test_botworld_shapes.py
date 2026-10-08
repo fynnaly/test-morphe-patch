@@ -58,6 +58,19 @@ def _():
     assert "171310" in src, "missing version guard"
 
 
+@check("rewarded-ads completes locally with synthetic ad+reward")
+def _():
+    src = read("rewards/BotworldRewardedAdsPatch.kt")
+    assert "Lcom/applovin/mediation/ads/MaxRewardedAd;" in src
+    assert '"showAd"' in src and '"isReady"' in src
+    assert '"onUserRewarded"' in src, "missing reward forward"
+    assert "MaxRewardImpl" in src and "createDefault" in src, "missing reward factory"
+    assert "Lcom/applovin/impl/u3;" in src, "missing synthetic ad"
+    assert "check-cast" in src, "missing verifier check-cast"
+    assert "onAdHidden" in src, "missing hide completion"
+    assert "171310" in src, "missing version guard"
+
+
 @check("kotlin files balance braces/parens")
 def _():
     for path in sorted(SRC.rglob("*.kt")):

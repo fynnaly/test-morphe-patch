@@ -22,6 +22,13 @@ none is made here.
    on `PlayGamesInitProvider` in the manifest. Login originates in
    il2cpp with no in-app DEX redirect point, so disabling the init
    provider is the whole route; the game runs as guest.
+3. **Skip rewarded ads** (bytecode, pure smali, no extension): replaces
+   `MaxRewardedAd.showAd(placement, customData)` with a local completion
+   that synthesizes a `u3` MaxAd + `MaxRewardImpl.createDefault()` and
+   fires the SDK's own `MaxRewardedAdImpl$b.onUserRewarded` +
+   `onAdHidden`. `isReady()` is forced true. No ad-network impression,
+   revenue, click or postback is synthesized; the game grants its fixed
+   per-placement reward in il2cpp on the callback.
 
 ## Not covered (option B remainder)
 
