@@ -60,7 +60,25 @@ Morphe bundles and PC smali (apktool/jadx) workflows.
    - Patched == installed is not proof. Require logcat evidence: onUserEarnedReward / onRewardedAdLoaded / purchase success, or tracer lines.
    - Ship failures with: input/output hashes, patch versions, build log lines, tap-count + stack variants, tracer result.
 
-## PC Smali Route (Android Studio / apktool)
+## Case Studies (proven verdicts, do not re-litigate)
+
+- Wibuku 1.4.5/1.4.1 (wibuku.app.wibuku, APKPure repack SHA-1 ec13...): login session is server-enforced at panel.wibuku.app (user/register -> user/session). Tracer showed STATUS RETRY + CODE empty + DATA null + ERR Refresh Token 19x; clear-data + ori APK failed identically = server-side block. Local isPremium true never unlocks a server-rejected session. Installer-origin (getInstallerPackageName / Playstore) + non-Play signer also rejected. MicroG route needs full transport rewrite (5 GMS actions + chimera + availability force), never manifest-only; repack signer risks UNREGISTERED_ON_API_CONSOLE. Porting 1.4.5->1.4.1 needs adaptive fingerprints (F0 Lom0 vs Lrm0, getCode only on 1.4.5).
+- Botworld 1.36.2 (Unity il2cpp, 621MB XAPK): chest reward gate is native QueueAd returning false before any Java bridge; tracer tag BOTW zero lines across 4 logs (81+119+58+1 taps) with healthy SDK (jsLoaded, no failed loads) = confirmed native. 5 DEX versions (1.6.0->1.10.1) all succeeded yet never fired. Same for purchase: Play responseCode 5 DEVELOPER_ERROR on repack signer. Stop DEX permanently once tracer is zero.
+- SFS 1.6.00.22 (Unity il2cpp, 103MB): get_IsPremium/get_IsOwned/expansion_bundle_* only in global-metadata.dat, zero DEX callers, zero validators in DEX, zero ads SDKs. MOD reference diffed binary-identical (1302/1302 files, same DEX/.so/metadata md5, same dev signer Stefo Mai Morojna) = fake mod, no recipe to copy. Same native verdict as Botworld.
+- ITD2 1.87.1 (positive control): IronSource LevelPlay bridge IS called by game, so capture-listener + fire displayed/rewarded/closed works; PikPok AndroidStore single entry allows 4-layer fake purchase. Copy this shape only when triage shows Java callers.
+
+## Environment Constraints (this server)
+
+- Termux + PRoot Debian, ~3.7GB RAM / ~1.9GB free, no NDK, no Android SDK, no Il2CppDumper, no ADB iteration. Androguard full AnalyzeAPK times out on 10k-class DEX: loop DEX files directly with DEX(open(rb).read()), LOGURU_LEVEL=ERROR + logging.disable, never AnalyzeAPK first.
+- Native .so companion (okish pattern: rawResourcePatch + loadLibrary in onCreate, tbz->nop) needs NDK r27 + dump tooling + crash-iteration on device; cannot be done blind from here. State this cost instead of attempting.
+- Large downloads (>20MB Telegram cap, slow mirrors like modyolo ~10-30KB/s): prefer parallel range curl, keep ori APK + libil2cpp.so + metadata locally for triage without re-download.
+
+## Solutions Per Layer
+
+- DEX-gated (Pizza/Coffee/ITD2-LevelPlay shape): force boolean, fire callback directly, cover every bridge, keep init providers on, verify via logcat callback.
+- Native-gated: move to PC (Android Studio + apktool/jadx + Il2CppDumper + NDK), find method offset via metadata token, patch branch/return, companion .so, crash-loop test. Offsets break every update; pin version tight.
+- Server-gated: stop client patches; vary version/account/network/patched-vs-ori as 4-way control to prove server-side, then say so.
+- Environment-gated (Private DNS AdGuard, MicroG missing ads dynamite, stale WebView): fix device first (disable Private DNS / allowlist googlesyndication + doubleclick, update WebView, freeze MicroG for test) before touching patches.
 
 - Decompile: apktool d app.apk; read smali; cross-check with jadx for logic, edit smali only.
 - Register budget: never introduce a brand-new local after clearing body; reuse type-compatible registers only. New locals or param-type reuse = VerifyError at runtime.
