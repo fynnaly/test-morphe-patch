@@ -1,3 +1,9 @@
+## [1.7.1](https://github.com/fynnaly/test-morphe-patch/compare/v1.7.0...v1.7.1) (2026-10-08)
+
+### 🐛 Bug Fixes
+
+* **botworld:** patch impl showAd convergence point so all Unity call paths grant reward ([0f5b26d](https://github.com/fynnaly/test-morphe-patch/commit/0f5b26d439bdb403715e5a20dfbb1eb9ae00a421))
+
 ## [1.7.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.6.1...v1.7.0) (2026-10-08)
 
 ### 🐛 Bug Fixes
