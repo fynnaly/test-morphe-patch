@@ -1,6 +1,7 @@
 package app.template.patches.botworld.rewards
 
 import app.morphe.patcher.Fingerprint
+import app.morphe.patcher.extensions.InstructionExtensions.instructions
 import app.morphe.patcher.patch.PatchException
 import app.morphe.patcher.patch.bytecodePatch
 import app.template.patches.shared.Constants.BOTWORLD_COMPATIBILITY
@@ -146,8 +147,9 @@ val botworldRewardedAdsPatch = bytecodePatch(
             throw PatchException("Botworld: default reward factory shape changed.")
         }
 
-        // Game always sees a ready rewarded slot.
-        ready.replaceBody("const/4 p0, 0x1\nreturn p0")
+        // Game always sees a ready rewarded slot. v0 (not p0): reusing the
+        // this-reference register for an int trips the ART verifier.
+        ready.replaceBody("const/4 v0, 0x1\nreturn v0")
         // Local completion: synthesize ad + default reward, fire the impl's
         // own wrapper callbacks (reward then hide). The wrapper return is
         // typed as the base class, so check-cast before the subclass reward
