@@ -1,3 +1,9 @@
+## [1.8.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.7.1...v1.8.0) (2026-10-08)
+
+### ✨ New Features
+
+* **botworld:** complete AdMob rewarded flow locally via Unity bridge ([ac5d725](https://github.com/fynnaly/test-morphe-patch/commit/ac5d725d855d4c6c0804f8f995881998400a7878))
+
 ## [1.7.1](https://github.com/fynnaly/test-morphe-patch/compare/v1.7.0...v1.7.1) (2026-10-08)
 
 ### 🐛 Bug Fixes
