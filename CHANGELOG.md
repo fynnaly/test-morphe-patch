@@ -1,3 +1,9 @@
+## [1.9.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.8.0...v1.9.0) (2026-10-08)
+
+### ✨ New Features
+
+* **botworld:** cover decagon bridge and fully offline init providers ([d03cf9f](https://github.com/fynnaly/test-morphe-patch/commit/d03cf9f6b2a2b8dc39f6509e1298d3ed874cff9f))
+
 ## [1.8.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.7.1...v1.8.0) (2026-10-08)
 
 ### ✨ New Features
