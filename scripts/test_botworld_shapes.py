@@ -71,6 +71,17 @@ def _():
     assert "171310" in src, "missing version guard"
 
 
+@check("admob rewarded completes locally via unity bridge")
+def _():
+    src = read("admob/BotworldAdMobRewardPatch.kt")
+    assert "Lcom/google/unity/ads/UnityRewardedAd;" in src
+    assert '"show"' in src and '"isAdAvailable"' in src
+    assert '"onUserEarnedReward"' in src, "missing reward callback"
+    assert "UnityRewardedAdCallback" in src
+    assert "runOnUiThread" in src, "missing show guard"
+    assert "171310" in src, "missing version guard"
+
+
 @check("kotlin files balance braces/parens")
 def _():
     for path in sorted(SRC.rglob("*.kt")):
