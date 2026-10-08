@@ -70,6 +70,34 @@ private object RewardForwardFingerprint : Fingerprint(
     name = "onUserRewarded",
 )
 
+// Convergence point: every public MaxRewardedAd.showAd overload delegates
+// into one of these two MaxFullscreenAdImpl.showAd methods. Patching here
+// catches all call paths (including the Activity/Context variants Unity
+// calls via JNI), instead of only the (placement, customData) overload.
+private object ImplShowAdFingerprint : Fingerprint(
+    returnType = "V",
+    parameters = listOf(
+        STRING,
+        STRING,
+        "Landroid/app/Activity;",
+    ),
+    definingClass = IMPL,
+    name = "showAd",
+)
+
+private object ImplShowAdContainerFingerprint : Fingerprint(
+    returnType = "V",
+    parameters = listOf(
+        STRING,
+        STRING,
+        "Landroid/view/ViewGroup;",
+        "Landroidx/lifecycle/Lifecycle;",
+        "Landroid/app/Activity;",
+    ),
+    definingClass = IMPL,
+    name = "showAd",
+)
+
 private fun Method.calls(owner: String, name: String): Boolean =
     implementation?.instructions?.any {
         val ref = (it as? ReferenceInstruction)?.reference as? MethodReference
@@ -94,16 +122,20 @@ val botworldRewardedAdsPatch = bytecodePatch(
     compatibleWith(BOTWORLD_COMPATIBILITY)
 
     execute {
-        val show = ShowAdFingerprint.method
         val ready = IsReadyFingerprint.method
         val forward = RewardForwardFingerprint.method
+        val implShow = ImplShowAdFingerprint.method
+        val implShowContainer = ImplShowAdContainerFingerprint.method
 
-        // showAd(String, String) must still delegate into the fullscreen impl;
-        // a body that no longer does means the SDK shape changed.
-        if (!show.calls(IMPL, "showAd")) {
-            throw PatchException(
-                "Botworld: rewarded show path changed; use a clean Botworld 1.36.2 (171310).",
-            )
+        // Both impl show entry points must still queue through the state
+        // machine (a(state, Runnable)); bodies that no longer do mean the
+        // SDK shape changed.
+        for (entry in listOf(implShow, implShowContainer)) {
+            if (!entry.calls(IMPL, "a")) {
+                throw PatchException(
+                    "Botworld: impl show path changed; use a clean Botworld 1.36.2 (171310).",
+                )
+            }
         }
         // The wrapper forward must still reach the game listener via q2.
         if (!forward.calls("Lcom/applovin/impl/q2;", "a")) {
@@ -149,12 +181,17 @@ val botworldRewardedAdsPatch = bytecodePatch(
         // Game always sees a ready rewarded slot. v0 (not p0): reusing the
         // this-reference register for an int trips the ART verifier.
         ready.replaceBody("const/4 v0, 0x1\nreturn v0")
-        // Local completion: synthesize ad + default reward, fire the impl's
-        // own wrapper callbacks (reward then hide). The wrapper return is
-        // typed as the base class, so check-cast before the subclass reward
-        // call (ART verifier rejects the invoke without it).
-        show.replaceBody(
-            """
+        // Local completion on the IMPL methods (not the public overloads):
+        // every public showAd variant converges here, including the
+        // Activity/Context ones Unity calls via JNI. Synthesize ad + default
+        // reward, fire the impl's own wrapper callbacks (reward then hide).
+        // The wrapper return is typed as the base class, so check-cast before
+        // the subclass reward call (ART verifier rejects the invoke without it).
+        // p1 = placement, p2 = customData on both impl signatures.
+        // The wrapper is obtained via the virtual createAdListenerWrapper()
+        // (overridden in MaxRewardedAdImpl to build the $b reward wrapper),
+        // never by reading field c directly (declared as the base $b type).
+        val localCompleteOrdered = """
                 sget-object v0, $REWARDED_FORMAT->REWARDED:$REWARDED_FORMAT
                 new-instance v1, $SYNTH_AD
                 const-string v2, "botworld_reward"
@@ -162,22 +199,23 @@ val botworldRewardedAdsPatch = bytecodePatch(
                 invoke-direct {v1, v2, v0, v3}, $SYNTH_AD-><init>($STRING$REWARDED_FORMAT$STRING)V
                 invoke-static {}, $REWARD_FACTORY->createDefault()Lcom/applovin/mediation/MaxReward;
                 move-result-object v2
-                iget-object v0, p0, $PUBLIC->a:$REWARDED_IMPL
-                invoke-virtual {v0}, $REWARDED_IMPL->createAdListenerWrapper()$BASE_WRAPPER
+                invoke-virtual {p0}, $IMPL->createAdListenerWrapper()$BASE_WRAPPER
                 move-result-object v0
                 check-cast v0, $WRAPPER
                 invoke-virtual {v0, v1, v2}, $WRAPPER->onUserRewarded(Lcom/applovin/mediation/MaxAd; Lcom/applovin/mediation/MaxReward;)V
                 invoke-virtual {v0, v1}, $BASE_WRAPPER->onAdHidden(Lcom/applovin/mediation/MaxAd;)V
                 return-void
-            """.trimIndent(),
-        )
-        // Silence the unused-parameter warning shape check: the original
-        // placement register p1 is consumed as the synthetic ad placement.
-        if (show.implementation?.instructions?.none {
-            (it.opcode == Opcode.INVOKE_VIRTUAL) &&
-                ((it as? ReferenceInstruction)?.reference as? MethodReference)?.name == "onUserRewarded"
-        } == true) {
-            throw PatchException("Botworld: reward body did not apply.")
+            """.trimIndent()
+        implShow.replaceBody(localCompleteOrdered)
+        implShowContainer.replaceBody(localCompleteOrdered)
+        // Post-check: both bodies must now invoke onUserRewarded.
+        for (entry in listOf(implShow, implShowContainer)) {
+            if (entry.implementation?.instructions?.none {
+                (it.opcode == Opcode.INVOKE_VIRTUAL) &&
+                    ((it as? ReferenceInstruction)?.reference as? MethodReference)?.name == "onUserRewarded"
+            } == true) {
+                throw PatchException("Botworld: reward body did not apply.")
+            }
         }
     }
 }
