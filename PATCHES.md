@@ -1,6 +1,6 @@
 # Patches
 
-> Generated from `patches-list.json` - **v1.10.1** (`master`) - **8 patches** across **2 apps** - back to [README](README.md)
+> Generated from `patches-list.json` - **v1.11.0** (`master`) - **10 patches** across **2 apps** - back to [README](README.md)
 
 ---
 
@@ -10,7 +10,9 @@
 
 | Patch | Details |
 |---|---|
+| **Ads path tracer** | Logs every Java ads-bridge entry via logcat (tag BOTW) for diagnosis. Proves whether the game reaches the Java layer. Disable for release builds. |
 | **Disable tamper guard** | Neutralizes the LuckyPatcher/signature guard so the re-signed app does not kill itself on launch. Does not grant items or currency. |
+| **Force GMS rewarded available** | Forces the GMS static RewardedAd.isAdAvailable() probe to true so any direct static callers (bypassing the Unity bridge) also take the reward path. Pairs with the Skip patches; IAP purchases still require real payment. |
 | **Play offline (guest)** | Disables Play Games sign-in so the game runs as guest without a Google login. Leaves the ads SDKs initializable so the local Skip patches can complete the reward flow. Does not grant items or currency. |
 | **Skip AdMob rewarded ads** | Completes the AdMob rewarded flow locally so the requested reward is granted without loading or playing an ad. Pairs with Skip rewarded ads (AppLovin MAX); IAP purchases still require real payment. |
 | **Skip decagon rewarded ads** | Completes the decagon AdMob rewarded flow locally so the requested reward is granted without loading or playing an ad. Pairs with Skip AdMob rewarded ads; IAP purchases still require real payment. |

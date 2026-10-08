@@ -1,3 +1,9 @@
+## [1.11.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.10.1...v1.11.0) (2026-10-08)
+
+### ✨ New Features
+
+* **botworld:** force GMS static availability and add ads path tracer ([05c09d2](https://github.com/fynnaly/test-morphe-patch/commit/05c09d2f0a8ccba9234b4efe0ca81bb96caeb3ca))
+
 ## [1.10.1](https://github.com/fynnaly/test-morphe-patch/compare/v1.10.0...v1.10.1) (2026-10-08)
 
 ### 🐛 Bug Fixes

@@ -19,11 +19,11 @@ Choose a supported app version, select the patches you want and patch a clean AP
 ## Patches
 
 <!-- PATCHES_START -->
-> **[v1.10.1](https://github.com/fynnaly/test-morphe-patch/releases/tag/v1.10.1)**&nbsp;&nbsp;&middot;&nbsp;&nbsp;`master`&nbsp;&nbsp;&middot;&nbsp;&nbsp;**8 patches** across **2 apps**&nbsp;&nbsp;&middot;&nbsp;&nbsp;[Full details](PATCHES.md)
+> **[v1.11.0](https://github.com/fynnaly/test-morphe-patch/releases/tag/v1.11.0)**&nbsp;&nbsp;&middot;&nbsp;&nbsp;`master`&nbsp;&nbsp;&middot;&nbsp;&nbsp;**10 patches** across **2 apps**&nbsp;&nbsp;&middot;&nbsp;&nbsp;[Full details](PATCHES.md)
 
 | # | App | Patches | Version | Package |
 |---|---|---|---|---|
-| 1 | [**Botworld**](PATCHES.md#botworld-comfeatherweightgamesfx) | 5 | `1.36.2` | [`com.featherweightgames.fx`](https://play.google.com/store/apps/details?id=com.featherweightgames.fx) |
+| 1 | [**Botworld**](PATCHES.md#botworld-comfeatherweightgamesfx) | 7 | `1.36.2` | [`com.featherweightgames.fx`](https://play.google.com/store/apps/details?id=com.featherweightgames.fx) |
 | 2 | [**Wibuku**](PATCHES.md#wibuku-wibukuappwibuku) | 3 | `1.4.5`, `1.4.1` | [`wibuku.app.wibuku`](https://play.google.com/store/apps/details?id=wibuku.app.wibuku) |
 <!-- PATCHES_END -->
 
