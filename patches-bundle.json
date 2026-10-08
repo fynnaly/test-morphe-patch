@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-08T03:02:05",
-  "description": "## [1.6.1](https://github.com/fynnaly/test-morphe-patch/compare/v1.6.0...v1.6.1) (2026-10-08)\n\n### 🐛 Bug Fixes\n\n* **botworld:** expose offline login as named patch so it appears in Manager ([a5ed9b9](https://github.com/fynnaly/test-morphe-patch/commit/a5ed9b9a44dfe73842573e2d9828a804259ce79e))",
-  "download_url": "https://github.com/fynnaly/test-morphe-patch/releases/download/v1.6.1/patches-1.6.1.mpp",
+  "created_at": "2026-10-08T03:49:02",
+  "description": "## [1.7.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.6.1...v1.7.0) (2026-10-08)\n\n### 🐛 Bug Fixes\n\n* **botworld:** correct Kotlin escaping for inner-class descriptors ([6095ea4](https://github.com/fynnaly/test-morphe-patch/commit/6095ea4b86b1ea84685119001a6a22d7a780c98f))\n* **botworld:** use v0 register and drop unused import in rewarded patch ([2497348](https://github.com/fynnaly/test-morphe-patch/commit/2497348a1c57d45d4fe716ab6f30824934c80aaf))\n\n### ✨ New Features\n\n* **botworld:** complete rewarded ads locally without playing ads ([e036c5f](https://github.com/fynnaly/test-morphe-patch/commit/e036c5f59297e4694260f87cbba9cd7501db4b43))",
+  "download_url": "https://github.com/fynnaly/test-morphe-patch/releases/download/v1.7.0/patches-1.7.0.mpp",
   "signature_download_url": "",
-  "version": "1.6.1"
+  "version": "1.7.0"
 }

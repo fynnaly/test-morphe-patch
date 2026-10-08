@@ -1,3 +1,14 @@
+## [1.7.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.6.1...v1.7.0) (2026-10-08)
+
+### 🐛 Bug Fixes
+
+* **botworld:** correct Kotlin escaping for inner-class descriptors ([6095ea4](https://github.com/fynnaly/test-morphe-patch/commit/6095ea4b86b1ea84685119001a6a22d7a780c98f))
+* **botworld:** use v0 register and drop unused import in rewarded patch ([2497348](https://github.com/fynnaly/test-morphe-patch/commit/2497348a1c57d45d4fe716ab6f30824934c80aaf))
+
+### ✨ New Features
+
+* **botworld:** complete rewarded ads locally without playing ads ([e036c5f](https://github.com/fynnaly/test-morphe-patch/commit/e036c5f59297e4694260f87cbba9cd7501db4b43))
+
 ## [1.6.1](https://github.com/fynnaly/test-morphe-patch/compare/v1.6.0...v1.6.1) (2026-10-08)
 
 ### 🐛 Bug Fixes
