@@ -52,7 +52,9 @@ def _():
     src = read("offline/BotworldOfflineLoginPatch.kt")
     assert "PlayGamesInitProvider" in src, "missing provider anchor"
     assert "android:enabled" in src and '"false"' in src
-    assert "resourcePatch" in src
+    assert "bytecodePatch" in src, "must be a named bytecodePatch to appear in metadata"
+    assert 'name = "Play offline (guest)"' in src, "patch name mismatch"
+    assert "dependsOn(botworldOfflineResources)" in src, "missing resource dependency"
     assert "171310" in src, "missing version guard"
 
 

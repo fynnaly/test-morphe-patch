@@ -1,6 +1,7 @@
 package app.template.patches.botworld.offline
 
 import app.morphe.patcher.patch.PatchException
+import app.morphe.patcher.patch.bytecodePatch
 import app.morphe.patcher.patch.resourcePatch
 import app.template.patches.shared.Constants.BOTWORLD_COMPATIBILITY
 import org.w3c.dom.Element
@@ -14,19 +15,22 @@ import org.w3c.dom.Element
  * in il2cpp), so there is no bytecode redirect point. Disabling the init
  * provider keeps the SDK uninitialized and the game runs as guest.
  *
+ * Follows the repo's resource-patch pattern (private anonymous resourcePatch
+ * as a dependency of a named bytecodePatch, like the Wibuku MicroG route):
+ * the metadata generator only lists named patches, so a standalone
+ * resourcePatch would never appear in Morphe Manager.
+ *
  * Guard: the provider must still be present and not already disabled, so a
  * reshaped manifest fails loudly instead of shipping a no-op patch.
  */
 private const val PLAY_GAMES_PROVIDER = "com.google.android.gms.games.provider.PlayGamesInitProvider"
+private const val PLAY_GAMES_SDK = "Lcom/google/android/gms/games/PlayGamesSdk;"
 private const val ANDROID = "http://schemas.android.com/apk/res/android"
 
 private fun value(element: Element, name: String) =
     element.getAttributeNS(ANDROID, name).ifEmpty { element.getAttribute("android:$name") }
 
-@Suppress("unused")
-val botworldOfflineLoginPatch = resourcePatch {
-    compatibleWith(BOTWORLD_COMPATIBILITY)
-
+private val botworldOfflineResources = resourcePatch {
     execute {
         document("AndroidManifest.xml").use { doc ->
             val providers = doc.documentElement.getElementsByTagName("provider")
@@ -48,6 +52,30 @@ val botworldOfflineLoginPatch = resourcePatch {
                         "use a clean Botworld 1.36.2 (171310).",
                 )
             }
+        }
+    }
+}
+
+@Suppress("unused")
+val botworldOfflineLoginPatch = bytecodePatch(
+    name = "Play offline (guest)",
+    description = "Disables Play Games sign-in so the game runs as guest without " +
+        "a Google login. Does not grant items or currency.",
+    default = true,
+) {
+    compatibleWith(BOTWORLD_COMPATIBILITY)
+    dependsOn(botworldOfflineResources)
+
+    execute {
+        // Guard: the Play Games SDK must still be bundled; a future Botworld
+        // without it (or with a renamed SDK) must fail here instead of
+        // shipping a manifest edit against an unknown login flow.
+        try {
+            classDefBy(PLAY_GAMES_SDK)
+        } catch (e: Exception) {
+            throw PatchException(
+                "Botworld: Play Games SDK gone; use a clean Botworld 1.36.2 (171310).",
+            )
         }
     }
 }
