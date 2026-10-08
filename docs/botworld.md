@@ -23,6 +23,9 @@ none is made here.
    gate (`GoogleAdService.QueueAd`) needs the ads SDK initialized before
    it calls the Java bridge, so killing init would short-circuit the gate
    to false before the Skip patches ever fire.
+3. **Force GMS rewarded available** (bytecode, 2 instructions): forces
+   the GMS static `RewardedAd.isAdAvailable(Context, String)` to true,
+   covering direct static callers that bypass the Unity bridge.
 3. **Skip rewarded ads** (bytecode, pure smali, no extension): replaces
    `MaxRewardedAd.showAd(placement, customData)` with a local completion
    that synthesizes a `u3` MaxAd + `MaxRewardImpl.createDefault()` and

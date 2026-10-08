@@ -101,6 +101,27 @@ def _():
     assert "171310" in src, "missing version guard"
 
 
+@check("gms static availability forced true")
+def _():
+    src = read("gms/BotworldGmsStaticPatch.kt")
+    assert "Lcom/google/android/gms/ads/rewarded/RewardedAd;" in src
+    assert '"isAdAvailable"' in src
+    assert "STATIC" in src, "must target the static probe"
+    assert "android/content/Context" in src
+    assert "const/4 v0, 0x1" in src, "must force true"
+    assert "171310" in src, "missing version guard"
+
+
+@check("ads path tracer logs bridge entries")
+def _():
+    src = read("tracer/BotworldAdsTracerPatch.kt")
+    assert '"BOTW"' in src, "missing log tag"
+    assert "methodOrNull" in src, "tracer must degrade gracefully"
+    assert "UnityRewardedAd" in src and "decagon" in src
+    assert "MaxRewardedAd" in src
+    assert "default = false" in src, "tracer must be opt-in"
+
+
 @check("kotlin files balance braces/parens")
 def _():
     for path in sorted(SRC.rglob("*.kt")):
