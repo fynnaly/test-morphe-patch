@@ -16,4 +16,15 @@ object Constants {
             AppTarget(version = "1.4.1", versionCode = 74),
         ),
     )
+
+    val BOTWORLD_COMPATIBILITY = Compatibility(
+        name = "Botworld",
+        description = "Botworld Adventure.",
+        packageName = "com.featherweightgames.fx",
+        apkFileType = ApkFileType.XAPK,
+        appIconColor = 0x4CAF50,
+        targets = listOf(
+            AppTarget(version = "1.36.2", versionCode = 171310),
+        ),
+    )
 }

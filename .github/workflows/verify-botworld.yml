@@ -1,0 +1,32 @@
+name: Verify Botworld patches
+on:
+  pull_request:
+    paths:
+      - 'patches/src/main/kotlin/app/template/patches/botworld/**'
+      - 'scripts/test_botworld_shapes.py'
+      - '.github/workflows/verify-botworld.yml'
+permissions:
+  contents: read
+  packages: read
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-java@v5.7.0
+        with:
+          distribution: temurin
+          java-version: '21'
+      - uses: android-actions/setup-android@v3
+      - name: Check Botworld patch shapes and guards
+        run: python3 scripts/test_botworld_shapes.py
+      - name: Compile patch bundle and metadata
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./gradlew :patches:buildAndroid :patches:generatePatchesList --no-daemon
+      - uses: actions/upload-artifact@v4
+        with:
+          name: botworld-patches-candidate
+          path: |
+            patches/build/libs/patches-*.mpp
+            patches-list.json
