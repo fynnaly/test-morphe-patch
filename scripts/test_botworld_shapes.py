@@ -77,8 +77,9 @@ def _():
 def _():
     src = read("admob/BotworldAdMobRewardPatch.kt")
     assert "Lcom/google/unity/ads/UnityRewardedAd;" in src
-    assert '"show"' in src and '"isAdAvailable"' in src
+    assert '"show"' in src and '"isAdAvailable"' in src and '"loadAd"' in src
     assert '"onUserEarnedReward"' in src, "missing reward callback"
+    assert '"onRewardedAdLoaded"' in src, "missing load completion"
     assert "UnityRewardedAdCallback" in src
     assert "runOnUiThread" in src, "missing show guard"
     assert "171310" in src, "missing version guard"
@@ -88,8 +89,9 @@ def _():
 def _():
     src = read("decagon/BotworldDecagonRewardPatch.kt")
     assert "Lcom/google/unity/ads/decagon/UnityRewardedAd;" in src
-    assert '"show"' in src
+    assert '"show"' in src and '"load"' in src
     assert '"onUserEarnedReward"' in src, "missing reward callback"
+    assert '"onRewardedAdLoaded"' in src, "missing load completion"
     assert "decagon/UnityRewardedAdCallback" in src
     assert "UnityAdBase" in src, "missing base-class callback field"
     assert "check-cast" in src, "missing verifier check-cast"

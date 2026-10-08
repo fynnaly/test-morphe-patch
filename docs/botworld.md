@@ -30,11 +30,14 @@ none is made here.
    `onAdHidden`. `isReady()` is forced true. No ad-network impression,
    revenue, click or postback is synthesized; the game grants its fixed
    per-placement reward in il2cpp on the callback.
-4. **Skip AdMob rewarded ads** (bytecode, pure smali): replaces
-   `UnityRewardedAd.show()` with a direct
-   `UnityRewardedAdCallback.onUserEarnedReward("", 1.0)` call and forces
-   `isAdAvailable()` true, so chests using the AdMob/Unity bridge (e.g.
-   Scrap Collector) grant without loading or playing an ad.
+4. **Skip AdMob rewarded ads** (bytecode, pure smali): forces
+   `UnityRewardedAd.isAdAvailable()` true, completes `loadAd()` locally
+   by firing `onRewardedAdLoaded()` (this flips the game's own flag so
+   it proceeds to `show()`), and replaces `show()` with a direct
+   `UnityRewardedAdCallback.onUserEarnedReward("", 1.0)` call.
+5. **Skip decagon rewarded ads** (bytecode, pure smali): same shape on
+   the decagon bridge (`load()` → `onRewardedAdLoaded()`,
+   `show()` → `onUserEarnedReward("", 1.0)`).
 
 ## Not covered (option B remainder)
 

@@ -61,6 +61,21 @@ private object AdMobAvailableFingerprint : Fingerprint(
     name = "isAdAvailable",
 )
 
+// Load entry: the game calls this first; the GMS load fails with no fill,
+// so rewardedAd stays null and the game never reaches show(). Completing
+// load locally (firing onRewardedAdLoaded) is what flips the game's own
+// availability flag and lets the show patch fire.
+private object AdMobLoadFingerprint : Fingerprint(
+    returnType = "V",
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    parameters = listOf(
+        STRING,
+        "Lcom/google/android/gms/ads/AdRequest;",
+    ),
+    definingClass = BRIDGE,
+    name = "loadAd",
+)
+
 private fun Method.calls(owner: String, name: String): Boolean =
     implementation?.instructions?.any {
         val ref = (it as? ReferenceInstruction)?.reference as? MethodReference
@@ -85,7 +100,15 @@ val botworldAdMobRewardPatch = bytecodePatch(
     execute {
         val show = AdMobShowFingerprint.method
         val available = AdMobAvailableFingerprint.method
+        val load = AdMobLoadFingerprint.method
 
+        // loadAd must still dispatch to the UI thread; otherwise the bridge
+        // shape changed.
+        if (!load.calls("Landroid/app/Activity;", "runOnUiThread")) {
+            throw PatchException(
+                "Botworld: AdMob load path changed; use a clean Botworld 1.36.2 (171310).",
+            )
+        }
         // show() must still null-check the GMS rewarded ad and dispatch to
         // the UI thread; a body that no longer does means the bridge changed.
         if (!show.calls("Landroid/app/Activity;", "runOnUiThread")) {
@@ -118,6 +141,20 @@ val botworldAdMobRewardPatch = bytecodePatch(
 
         // Game always sees an available AdMob rewarded slot.
         available.replaceBody("const/4 v0, 0x1\nreturn v0")
+        // Local load completion: fire onRewardedAdLoaded() on the game
+        // callback so the game's own flag flips and it proceeds to show().
+        // Null-safe: no callback yet means nothing to notify.
+        // NOTE: descriptors below are literals to avoid Kotlin
+        // $-interpolation compile failures.
+        load.replaceBody(
+            """
+                iget-object v0, p0, Lcom/google/unity/ads/UnityRewardedAd;->callback:Lcom/google/unity/ads/UnityRewardedAdCallback;
+                if-eqz v0, :done
+                invoke-interface {v0}, Lcom/google/unity/ads/UnityRewardedAdCallback;->onRewardedAdLoaded()V
+                :done
+                return-void
+            """.trimIndent(),
+        )
         // Local completion: fire the game callback directly. Null-safe: if
         // the game never set a callback, return without crashing.
         // NOTE: the reward descriptor below is a literal
@@ -138,6 +175,12 @@ val botworldAdMobRewardPatch = bytecodePatch(
                 ((it as? ReferenceInstruction)?.reference as? MethodReference)?.name == "onUserEarnedReward"
         } == true) {
             throw PatchException("Botworld: AdMob reward body did not apply.")
+        }
+        if (load.implementation?.instructions?.none {
+            (it.opcode == Opcode.INVOKE_INTERFACE) &&
+                ((it as? ReferenceInstruction)?.reference as? MethodReference)?.name == "onRewardedAdLoaded"
+        } == true) {
+            throw PatchException("Botworld: AdMob load body did not apply.")
         }
     }
 }

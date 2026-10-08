@@ -44,6 +44,19 @@ private object DecagonShowFingerprint : Fingerprint(
     filters = listOf(string(SHOW_GUARD)),
 )
 
+// Load entry mirrors the classic bridge: without a local load completion
+// the game never reaches show(). Fires onRewardedAdLoaded() on the
+// decagon game callback (field lives on UnityAdBase as Object).
+private object DecagonLoadFingerprint : Fingerprint(
+    returnType = "V",
+    accessFlags = listOf(AccessFlags.PUBLIC),
+    parameters = listOf(
+        "Lcom/google/android/libraries/ads/mobile/sdk/common/AdRequest;",
+    ),
+    definingClass = DECAGON_BRIDGE,
+    name = "load",
+)
+
 private fun Method.calls(owner: String, name: String): Boolean =
     implementation?.instructions?.any {
         val ref = (it as? ReferenceInstruction)?.reference as? MethodReference
@@ -67,7 +80,13 @@ val botworldDecagonRewardPatch = bytecodePatch(
 
     execute {
         val show = DecagonShowFingerprint.method
+        val load = DecagonLoadFingerprint.method
 
+        if (!load.calls("Landroid/app/Activity;", "runOnUiThread")) {
+            throw PatchException(
+                "Botworld: decagon load path changed; use a clean Botworld 1.36.2 (171310).",
+            )
+        }
         if (!show.calls("Landroid/app/Activity;", "runOnUiThread")) {
             throw PatchException(
                 "Botworld: decagon show path changed; use a clean Botworld 1.36.2 (171310).",
@@ -89,6 +108,20 @@ val botworldDecagonRewardPatch = bytecodePatch(
             "Botworld: decagon reward callback gone; use a clean Botworld 1.36.2 (171310).",
         )
 
+        // Local load completion: fire onRewardedAdLoaded() on the game
+        // callback so the game's own flag flips and it proceeds to show().
+        // NOTE: descriptors below are literals to avoid Kotlin
+        // $-interpolation compile failures.
+        load.replaceBody(
+            """
+                iget-object v0, p0, Lcom/google/unity/ads/decagon/UnityAdBase;->callback:Ljava/lang/Object;
+                if-eqz v0, :done
+                check-cast v0, Lcom/google/unity/ads/decagon/UnityRewardedAdCallback;
+                invoke-interface {v0}, Lcom/google/unity/ads/decagon/UnityRewardedAdCallback;->onRewardedAdLoaded()V
+                :done
+                return-void
+            """.trimIndent(),
+        )
         // Local completion: fire the game callback directly. The callback
         // field is declared on the UnityAdBase superclass as Object.
         // NOTE: descriptors below are literals to avoid Kotlin
@@ -110,6 +143,12 @@ val botworldDecagonRewardPatch = bytecodePatch(
                 ((it as? ReferenceInstruction)?.reference as? MethodReference)?.name == "onUserEarnedReward"
         } == true) {
             throw PatchException("Botworld: decagon reward body did not apply.")
+        }
+        if (load.implementation?.instructions?.none {
+            (it.opcode == Opcode.INVOKE_INTERFACE) &&
+                ((it as? ReferenceInstruction)?.reference as? MethodReference)?.name == "onRewardedAdLoaded"
+        } == true) {
+            throw PatchException("Botworld: decagon load body did not apply.")
         }
     }
 }
