@@ -1,7 +1,38 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.5.0",
+  "version": "1.6.0",
   "patches": [
+    {
+      "name": "Disable tamper guard",
+      "description": "Neutralizes the LuckyPatcher/signature guard so the re-signed app does not kill itself on launch. Does not grant items or currency.",
+      "default": true,
+      "dependencies": [],
+      "compatiblePackages": [
+        {
+          "packageName": "com.featherweightgames.fx",
+          "name": "Botworld",
+          "description": "Botworld Adventure.",
+          "apkFileType": "XAPK",
+          "appIconColor": "#4CAF50",
+          "signatures": null,
+          "targets": [
+            {
+              "version": "1.36.2",
+              "versionCodes": {
+                "ARM64_V8A": 171310,
+                "ARMEABI_V7A": 171310,
+                "X86_64": 171310,
+                "X86": 171310
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            }
+          ]
+        }
+      ],
+      "options": []
+    },
     {
       "name": "Google sign-in via MicroG-RE",
       "description": "Routes Google sign-in through MicroG-RE 7.1.1+. Requires app.revanced.android.gms with the same Google account.",

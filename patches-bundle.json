@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-08T00:22:53",
-  "description": "## [1.5.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.4.0...v1.5.0) (2026-10-08)\n\n### ✨ New Features\n\n* **wibuku:** support 1.4.1 (74) alongside 1.4.5 (78) ([27e0fef](https://github.com/fynnaly/test-morphe-patch/commit/27e0fef5bcdd5d023860bc6ec964159edfdb7dd0))",
-  "download_url": "https://github.com/fynnaly/test-morphe-patch/releases/download/v1.5.0/patches-1.5.0.mpp",
+  "created_at": "2026-10-08T02:38:09",
+  "description": "## [1.6.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.5.0...v1.6.0) (2026-10-08)\n\n### ✨ New Features\n\n* **botworld:** disable tamper guard and Play Games login for offline play ([c15fe81](https://github.com/fynnaly/test-morphe-patch/commit/c15fe8167a73e8d934c08f77ceac369a9987cc49))",
+  "download_url": "https://github.com/fynnaly/test-morphe-patch/releases/download/v1.6.0/patches-1.6.0.mpp",
   "signature_download_url": "",
-  "version": "1.5.0"
+  "version": "1.6.0"
 }

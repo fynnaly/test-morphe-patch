@@ -1,3 +1,9 @@
+## [1.6.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.5.0...v1.6.0) (2026-10-08)
+
+### ✨ New Features
+
+* **botworld:** disable tamper guard and Play Games login for offline play ([c15fe81](https://github.com/fynnaly/test-morphe-patch/commit/c15fe8167a73e8d934c08f77ceac369a9987cc49))
+
 ## [1.5.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.4.0...v1.5.0) (2026-10-08)
 
 ### ✨ New Features

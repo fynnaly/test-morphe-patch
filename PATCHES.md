@@ -1,6 +1,16 @@
 # Patches
 
-> Generated from `patches-list.json` - **v1.5.0** (`master`) - **3 patches** across **1 app** - back to [README](README.md)
+> Generated from `patches-list.json` - **v1.6.0** (`master`) - **4 patches** across **2 apps** - back to [README](README.md)
+
+---
+
+## Botworld (com.featherweightgames.fx)
+
+**Supported versions:** `1.36.2`
+
+| Patch | Details |
+|---|---|
+| **Disable tamper guard** | Neutralizes the LuckyPatcher/signature guard so the re-signed app does not kill itself on launch. Does not grant items or currency. |
 
 ---
 
