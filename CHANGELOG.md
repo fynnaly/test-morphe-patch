@@ -1,3 +1,9 @@
+## [1.5.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.4.0...v1.5.0) (2026-10-08)
+
+### ✨ New Features
+
+* **wibuku:** support 1.4.1 (74) alongside 1.4.5 (78) ([27e0fef](https://github.com/fynnaly/test-morphe-patch/commit/27e0fef5bcdd5d023860bc6ec964159edfdb7dd0))
+
 ## [1.4.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.3.0...v1.4.0) (2026-10-07)
 
 ### ✨ New Features

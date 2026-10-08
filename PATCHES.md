@@ -1,12 +1,12 @@
 # Patches
 
-> Generated from `patches-list.json` - **v1.4.0** (`master`) - **3 patches** across **1 app** - back to [README](README.md)
+> Generated from `patches-list.json` - **v1.5.0** (`master`) - **3 patches** across **1 app** - back to [README](README.md)
 
 ---
 
 ## Wibuku (wibuku.app.wibuku)
 
-**Supported versions:** `1.4.5`
+**Supported versions:** `1.4.5` `1.4.1`
 
 | Patch | Details |
 |---|---|

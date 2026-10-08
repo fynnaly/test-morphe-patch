@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "patches": [
     {
       "name": "Google sign-in via MicroG-RE",
@@ -25,6 +25,18 @@
                 "ARMEABI_V7A": 78,
                 "X86_64": 78,
                 "X86": 78
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": "1.4.1",
+              "versionCodes": {
+                "ARM64_V8A": 74,
+                "ARMEABI_V7A": 74,
+                "X86_64": 74,
+                "X86": 74
               },
               "isExperimental": false,
               "minSdk": null,
@@ -60,6 +72,18 @@
               "isExperimental": false,
               "minSdk": null,
               "description": null
+            },
+            {
+              "version": "1.4.1",
+              "versionCodes": {
+                "ARM64_V8A": 74,
+                "ARMEABI_V7A": 74,
+                "X86_64": 74,
+                "X86": 74
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
             }
           ]
         }
@@ -87,6 +111,18 @@
                 "ARMEABI_V7A": 78,
                 "X86_64": 78,
                 "X86": 78
+              },
+              "isExperimental": false,
+              "minSdk": null,
+              "description": null
+            },
+            {
+              "version": "1.4.1",
+              "versionCodes": {
+                "ARM64_V8A": 74,
+                "ARMEABI_V7A": 74,
+                "X86_64": 74,
+                "X86": 74
               },
               "isExperimental": false,
               "minSdk": null,

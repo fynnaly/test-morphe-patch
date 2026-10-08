@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-07T22:54:53",
-  "description": "## [1.4.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.3.0...v1.4.0) (2026-10-07)\n\n### ✨ New Features\n\n* **wibuku:** log response status, code and data in login tracer ([385181e](https://github.com/fynnaly/test-morphe-patch/commit/385181eff0c3f770f7a70a4481436610b3e01209))",
-  "download_url": "https://github.com/fynnaly/test-morphe-patch/releases/download/v1.4.0/patches-1.4.0.mpp",
+  "created_at": "2026-10-08T00:22:53",
+  "description": "## [1.5.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.4.0...v1.5.0) (2026-10-08)\n\n### ✨ New Features\n\n* **wibuku:** support 1.4.1 (74) alongside 1.4.5 (78) ([27e0fef](https://github.com/fynnaly/test-morphe-patch/commit/27e0fef5bcdd5d023860bc6ec964159edfdb7dd0))",
+  "download_url": "https://github.com/fynnaly/test-morphe-patch/releases/download/v1.5.0/patches-1.5.0.mpp",
   "signature_download_url": "",
-  "version": "1.4.0"
+  "version": "1.5.0"
 }
