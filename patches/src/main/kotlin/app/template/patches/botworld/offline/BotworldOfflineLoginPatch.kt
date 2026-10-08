@@ -24,8 +24,12 @@ import org.w3c.dom.Element
  * reshaped manifest fails loudly instead of shipping a no-op patch.
  */
 private const val PLAY_GAMES_PROVIDER = "com.google.android.gms.games.provider.PlayGamesInitProvider"
-private const val MOBILE_ADS_PROVIDER = "com.google.android.gms.ads.MobileAdsInitProvider"
-private const val APPLOVIN_PROVIDER = "com.applovin.sdk.AppLovinInitProvider"
+// NOTE: MobileAdsInitProvider and AppLovinInitProvider are intentionally
+// NOT disabled. The game's C# gate (GoogleAdService.QueueAd) needs the ads
+// SDK initialized; with the init providers off the gate short-circuits to
+// false before ever calling the Java bridge, so the Skip patches never
+// fire. Login stays off, ads SDK stays init-capable, rewards come from the
+// local Skip patches.
 private const val PLAY_GAMES_SDK = "Lcom/google/android/gms/games/PlayGamesSdk;"
 private const val ANDROID = "http://schemas.android.com/apk/res/android"
 
@@ -36,7 +40,7 @@ private val botworldOfflineResources = resourcePatch {
     execute {
         document("AndroidManifest.xml").use { doc ->
             val providers = doc.documentElement.getElementsByTagName("provider")
-            val targets = setOf(PLAY_GAMES_PROVIDER, MOBILE_ADS_PROVIDER, APPLOVIN_PROVIDER)
+            val targets = setOf(PLAY_GAMES_PROVIDER)
             val touched = mutableSetOf<String>()
             for (i in 0 until providers.length) {
                 val provider = providers.item(i) as Element
@@ -64,9 +68,9 @@ private val botworldOfflineResources = resourcePatch {
 @Suppress("unused")
 val botworldOfflineLoginPatch = bytecodePatch(
     name = "Play offline (guest)",
-    description = "Disables Play Games sign-in plus the AdMob/AppLovin init " +
-        "providers so the game runs fully offline as guest: no SDK ad " +
-        "loading, no login. Rewards come from the local Skip patches. " +
+    description = "Disables Play Games sign-in so the game runs as guest " +
+        "without a Google login. Leaves the ads SDKs initializable so the " +
+        "local Skip patches can complete the reward flow. " +
         "Does not grant items or currency.",
     default = true,
 ) {

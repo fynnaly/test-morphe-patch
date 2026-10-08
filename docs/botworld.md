@@ -19,10 +19,10 @@ none is made here.
    itself on launch when Lucky Patcher packages or a foreign signature
    are detected.
 2. **Play offline (guest)** (resource): disables `PlayGamesInitProvider`
-   plus the AdMob (`MobileAdsInitProvider`) and AppLovin
-   (`AppLovinInitProvider`) init providers, so the game runs fully
-   offline as guest: no SDK ad loading, no login. Rewards come from
-   the local Skip patches below.
+   only. The ads init providers stay enabled on purpose: the game's C#
+   gate (`GoogleAdService.QueueAd`) needs the ads SDK initialized before
+   it calls the Java bridge, so killing init would short-circuit the gate
+   to false before the Skip patches ever fire.
 3. **Skip rewarded ads** (bytecode, pure smali, no extension): replaces
    `MaxRewardedAd.showAd(placement, customData)` with a local completion
    that synthesizes a `u3` MaxAd + `MaxRewardImpl.createDefault()` and

@@ -51,8 +51,10 @@ def _():
 def _():
     src = read("offline/BotworldOfflineLoginPatch.kt")
     assert "PlayGamesInitProvider" in src, "missing provider anchor"
-    assert "MobileAdsInitProvider" in src, "missing AdMob provider anchor"
-    assert "AppLovinInitProvider" in src, "missing AppLovin provider anchor"
+    assert "MobileAdsInitProvider" not in src.replace(
+        "MobileAdsInitProvider and AppLovinInitProvider are intentionally", ""
+    ).replace("MobileAdsInitProvider`, `AppLovinInitProvider`) alongside", ""), \
+        "ads init providers must stay enabled so the skip patches can fire"
     assert "android:enabled" in src and '"false"' in src
     assert "bytecodePatch" in src, "must be a named bytecodePatch to appear in metadata"
     assert 'name = "Play offline (guest)"' in src, "patch name mismatch"
