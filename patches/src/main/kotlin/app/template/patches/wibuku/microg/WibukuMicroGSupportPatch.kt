@@ -121,7 +121,7 @@ val wibukuMicroGSupportPatch = bytecodePatch(
         if (missingActions.isNotEmpty()) {
             throw PatchException(
                 "Google sign-in via MicroG-RE: missing service bindings $missingActions; " +
-                    "use a clean Wibuku 1.4.5 (78).",
+                    "use a clean Wibuku 1.4.5 (78) or 1.4.1 (74).",
             )
         }
 
@@ -149,11 +149,13 @@ val wibukuMicroGSupportPatch = bytecodePatch(
         val resolver = resolverType
             ?: throw PatchException(
                 "Google sign-in via MicroG-RE: bind resolver not found; " +
-                    "use a clean Wibuku 1.4.5 (78).",
+                    "use a clean Wibuku 1.4.5 (78) or 1.4.1 (74).",
             )
 
         // 3. Static bind fallback: the Intent method in the resolver class
         // whose GMS package string feeds directly into setPackage().
+        // 1.4.5 takes (Context, X); 1.4.1 takes (Context, Lom9;) — accept
+        // any second parameter as long as the first is Context.
         val mutableResolver = mutableClassDefBy(resolver)
         var bindMethodName: String? = null
         var bindIndex = -1
@@ -187,7 +189,7 @@ val wibukuMicroGSupportPatch = bytecodePatch(
         val bindName = bindMethodName
             ?: throw PatchException(
                 "Google sign-in via MicroG-RE: bind fallback not found; " +
-                    "use a clean Wibuku 1.4.5 (78).",
+                    "use a clean Wibuku 1.4.5 (78) or 1.4.1 (74).",
             )
 
         // 4. Availability probe: the (Context, int)->int method that stats

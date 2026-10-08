@@ -11,6 +11,9 @@ object Constants {
         packageName = "wibuku.app.wibuku",
         apkFileType = ApkFileType.XAPK,
         appIconColor = 0x7C4DFF,
-        targets = listOf(AppTarget(version = "1.4.5", versionCode = 78)),
+        targets = listOf(
+            AppTarget(version = "1.4.5", versionCode = 78),
+            AppTarget(version = "1.4.1", versionCode = 74),
+        ),
     )
 }

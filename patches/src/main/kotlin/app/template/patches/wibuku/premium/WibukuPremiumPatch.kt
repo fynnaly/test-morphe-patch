@@ -43,7 +43,7 @@ val wibukuPremiumPatch = bytecodePatch(
         if (!readsPremium) {
             throw PatchException(
                 "Wibuku: isPremium no longer reads the premium timestamp; " +
-                    "method shape changed, use a clean Wibuku 1.4.5 (78).",
+                    "method shape changed, use a clean Wibuku 1.4.5 (78) or 1.4.1 (74).",
             )
         }
 

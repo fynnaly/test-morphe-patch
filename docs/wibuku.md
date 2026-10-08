@@ -1,8 +1,22 @@
-# Wibuku 1.4.5 patch notes
+# Wibuku 1.4.5 / 1.4.1 patch notes
 
-Target: `wibuku.app.wibuku` **1.4.5 (78)**, XAPK (APKPure repack, generic
-AOSP signer `ec131df0...`). DEX is not heavily obfuscated; app classes keep
+Target: `wibuku.app.wibuku` **1.4.5 (78)** and **1.4.1 (74)**, XAPK
+(APKPure repacks, generic AOSP signer `ec131df0...`, verified identical
+SHA-1 on both APKs). DEX is not heavily obfuscated; app classes keep
 readable names (`wibuku.app.wibuku.*`, 3 DEX files, ~11k classes total).
+
+Version differences (verified from both APK DEXes):
+- Splash gate `C0/H0/I0`, worker string `Tidak bisa masuk saat ini.`,
+  `AppUser.isPremium()Z` + `premium J`, auth scopes and all 5 GMS
+  service-action getters are identical in both versions.
+- Obfuscated owners shifted: response handler `Lnc1;.a` (1.4.5) vs
+  `Lic1;.a` (1.4.1); dialog helper `Lh5a;.D(..., Lzw1;)` vs
+  `Lmu1;.B(..., Llw1;)`; coroutine params `Lom0;/Lxo1;` vs `Lrm0;/Lqo1;`.
+  The tracer ships both fingerprint variants (best-effort via
+  `methodOrNull`); functional patches match by shape, not owner names.
+- `ResourceResponse` on 1.4.1 has **no `getCode()`** (4 fields instead
+  of 5); the tracer skips the CODE tag there to avoid
+  `NoSuchMethodError`.
 
 ## Login flow (verified from the APK DEX)
 

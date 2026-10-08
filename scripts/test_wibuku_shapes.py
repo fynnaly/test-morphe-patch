@@ -30,12 +30,14 @@ def read(rel):
     return (SRC / rel).read_text(encoding="utf-8")
 
 
-@check("compatibility pins wibuku 1.4.5/78")
+@check("compatibility pins wibuku 1.4.5/78 and 1.4.1/74")
 def _():
     src = (ROOT / "patches/src/main/kotlin/app/template/patches/shared/Constants.kt").read_text()
     assert 'packageName = "wibuku.app.wibuku"' in src, "package mismatch"
-    assert 'version = "1.4.5"' in src, "version mismatch"
-    assert "versionCode = 78" in src, "versionCode mismatch"
+    assert 'version = "1.4.5"' in src, "1.4.5 target missing"
+    assert "versionCode = 78" in src, "78 versionCode missing"
+    assert 'version = "1.4.1"' in src, "1.4.1 target missing"
+    assert "versionCode = 74" in src, "74 versionCode missing"
 
 
 @check("premium fingerprint targets AppUser.isPremium")
@@ -59,6 +61,7 @@ def _():
     assert "ec131df0ce4e569a0fef40a1f5e6ef74d4d1e8e7" in src, "signer mismatch"
     assert "SPOOFED_PACKAGE_NAME" in src and "SPOOFED_PACKAGE_SIGNATURE" in src
     assert "MICROG_PACKAGE_NAME" in src
+    assert "VERSION_CODE_145" in src and "VERSION_CODE_141" in src, "dual version guard missing"
 
 
 @check("auth-shape fingerprint pins IntroFragment scopes")
@@ -99,6 +102,10 @@ def _():
     assert "WIBUKU-STATUS" in src, "missing response status log"
     assert "WIBUKU-CODE" in src, "missing response code log"
     assert "WIBUKU-DATA" in src, "missing response data log"
+    # dual-version coverage: 1.4.5 + 1.4.1 owner variants
+    assert "Lic1;" in src, "missing 1.4.1 response handler"
+    assert "Lmu1;" in src, "missing 1.4.1 dialog helper"
+    assert "Lrm0;" in src and "Lqo1;" in src, "missing 1.4.1 coroutine params"
     assert "Lnc1;" in src and "ResourceResponse;" in src, "missing response handler fingerprint"
 
 

@@ -15,7 +15,10 @@ import org.w3c.dom.Element
 internal object WibukuMicroGManifest {
     const val MICROG = "app.revanced.android.gms"
     const val PACKAGE = "wibuku.app.wibuku"
-    const val VERSION_CODE = "78"
+    // 1.4.5 repack (78) and 1.4.1 repack (74) share the same generic
+    // AOSP signer (verified via androguard SHA-1 on both APKs).
+    const val VERSION_CODE_145 = "78"
+    const val VERSION_CODE_141 = "74"
     const val SIGNER = "ec131df0ce4e569a0fef40a1f5e6ef74d4d1e8e7"
     private const val ANDROID = "http://schemas.android.com/apk/res/android"
 
@@ -28,8 +31,9 @@ internal object WibukuMicroGManifest {
         }
         requireShape(
             manifest.getAttribute("package") == PACKAGE &&
-                value(manifest, "versionCode") == VERSION_CODE,
-            "manifest target changed; use a clean Wibuku 1.4.5 (78)",
+                (value(manifest, "versionCode") == VERSION_CODE_145 ||
+                    value(manifest, "versionCode") == VERSION_CODE_141),
+            "manifest target changed; use a clean Wibuku 1.4.5 (78) or 1.4.1 (74)",
         )
         val apps = manifest.getElementsByTagName("application")
         requireShape(apps.length == 1, "expected one application")

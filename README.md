@@ -28,7 +28,7 @@ Choose a supported app version, select the patches you want and patch a clean AP
 
 ### Wibuku
 
-Version **1.4.5 (78)**, XAPK. **Premium** forces the local expiry check
+Version **1.4.5 (78)** and **1.4.1 (74)**, XAPK. **Premium** forces the local expiry check
 (`AppUser.isPremium()`) to always pass. It does not activate a subscription
 on your account; server-gated features may still require a real purchase.
 
