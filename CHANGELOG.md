@@ -1,3 +1,9 @@
+## [1.6.1](https://github.com/fynnaly/test-morphe-patch/compare/v1.6.0...v1.6.1) (2026-10-08)
+
+### 🐛 Bug Fixes
+
+* **botworld:** expose offline login as named patch so it appears in Manager ([a5ed9b9](https://github.com/fynnaly/test-morphe-patch/commit/a5ed9b9a44dfe73842573e2d9828a804259ce79e))
+
 ## [1.6.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.5.0...v1.6.0) (2026-10-08)
 
 ### ✨ New Features

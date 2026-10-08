@@ -1,6 +1,6 @@
 # Patches
 
-> Generated from `patches-list.json` - **v1.6.0** (`master`) - **4 patches** across **2 apps** - back to [README](README.md)
+> Generated from `patches-list.json` - **v1.6.1** (`master`) - **5 patches** across **2 apps** - back to [README](README.md)
 
 ---
 
@@ -11,6 +11,7 @@
 | Patch | Details |
 |---|---|
 | **Disable tamper guard** | Neutralizes the LuckyPatcher/signature guard so the re-signed app does not kill itself on launch. Does not grant items or currency. |
+| **Play offline (guest)** | Disables Play Games sign-in so the game runs as guest without a Google login. Does not grant items or currency. |
 
 ---
 

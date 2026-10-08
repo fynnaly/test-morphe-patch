@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-08T02:38:09",
-  "description": "## [1.6.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.5.0...v1.6.0) (2026-10-08)\n\n### ✨ New Features\n\n* **botworld:** disable tamper guard and Play Games login for offline play ([c15fe81](https://github.com/fynnaly/test-morphe-patch/commit/c15fe8167a73e8d934c08f77ceac369a9987cc49))",
-  "download_url": "https://github.com/fynnaly/test-morphe-patch/releases/download/v1.6.0/patches-1.6.0.mpp",
+  "created_at": "2026-10-08T03:02:05",
+  "description": "## [1.6.1](https://github.com/fynnaly/test-morphe-patch/compare/v1.6.0...v1.6.1) (2026-10-08)\n\n### 🐛 Bug Fixes\n\n* **botworld:** expose offline login as named patch so it appears in Manager ([a5ed9b9](https://github.com/fynnaly/test-morphe-patch/commit/a5ed9b9a44dfe73842573e2d9828a804259ce79e))",
+  "download_url": "https://github.com/fynnaly/test-morphe-patch/releases/download/v1.6.1/patches-1.6.1.mpp",
   "signature_download_url": "",
-  "version": "1.6.0"
+  "version": "1.6.1"
 }
