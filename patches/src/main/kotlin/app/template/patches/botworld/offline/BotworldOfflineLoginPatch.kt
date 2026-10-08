@@ -24,6 +24,8 @@ import org.w3c.dom.Element
  * reshaped manifest fails loudly instead of shipping a no-op patch.
  */
 private const val PLAY_GAMES_PROVIDER = "com.google.android.gms.games.provider.PlayGamesInitProvider"
+private const val MOBILE_ADS_PROVIDER = "com.google.android.gms.ads.MobileAdsInitProvider"
+private const val APPLOVIN_PROVIDER = "com.applovin.sdk.AppLovinInitProvider"
 private const val PLAY_GAMES_SDK = "Lcom/google/android/gms/games/PlayGamesSdk;"
 private const val ANDROID = "http://schemas.android.com/apk/res/android"
 
@@ -34,21 +36,24 @@ private val botworldOfflineResources = resourcePatch {
     execute {
         document("AndroidManifest.xml").use { doc ->
             val providers = doc.documentElement.getElementsByTagName("provider")
-            var touched = 0
+            val targets = setOf(PLAY_GAMES_PROVIDER, MOBILE_ADS_PROVIDER, APPLOVIN_PROVIDER)
+            val touched = mutableSetOf<String>()
             for (i in 0 until providers.length) {
                 val provider = providers.item(i) as Element
-                if (value(provider, "name") != PLAY_GAMES_PROVIDER) continue
+                val name = value(provider, "name")
+                if (name !in targets) continue
                 if (value(provider, "enabled") == "false") {
                     throw PatchException(
-                        "Botworld: Play Games provider already disabled; use a clean Botworld 1.36.2 (171310).",
+                        "Botworld: provider $name already disabled; use a clean Botworld 1.36.2 (171310).",
                     )
                 }
                 provider.setAttribute("android:enabled", "false")
-                touched++
+                touched.add(name)
             }
-            if (touched != 1) {
+            val missing = targets - touched
+            if (missing.isNotEmpty()) {
                 throw PatchException(
-                    "Botworld: Play Games provider not found ($touched matches); " +
+                    "Botworld: providers not found ($missing); " +
                         "use a clean Botworld 1.36.2 (171310).",
                 )
             }
@@ -59,8 +64,10 @@ private val botworldOfflineResources = resourcePatch {
 @Suppress("unused")
 val botworldOfflineLoginPatch = bytecodePatch(
     name = "Play offline (guest)",
-    description = "Disables Play Games sign-in so the game runs as guest without " +
-        "a Google login. Does not grant items or currency.",
+    description = "Disables Play Games sign-in plus the AdMob/AppLovin init " +
+        "providers so the game runs fully offline as guest: no SDK ad " +
+        "loading, no login. Rewards come from the local Skip patches. " +
+        "Does not grant items or currency.",
     default = true,
 ) {
     compatibleWith(BOTWORLD_COMPATIBILITY)

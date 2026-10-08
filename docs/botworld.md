@@ -18,10 +18,11 @@ none is made here.
    anchors are still present. Without this the re-signed app kills
    itself on launch when Lucky Patcher packages or a foreign signature
    are detected.
-2. **Play offline (guest)** (resource): sets `android:enabled="false"`
-   on `PlayGamesInitProvider` in the manifest. Login originates in
-   il2cpp with no in-app DEX redirect point, so disabling the init
-   provider is the whole route; the game runs as guest.
+2. **Play offline (guest)** (resource): disables `PlayGamesInitProvider`
+   plus the AdMob (`MobileAdsInitProvider`) and AppLovin
+   (`AppLovinInitProvider`) init providers, so the game runs fully
+   offline as guest: no SDK ad loading, no login. Rewards come from
+   the local Skip patches below.
 3. **Skip rewarded ads** (bytecode, pure smali, no extension): replaces
    `MaxRewardedAd.showAd(placement, customData)` with a local completion
    that synthesizes a `u3` MaxAd + `MaxRewardImpl.createDefault()` and
