@@ -1,6 +1,6 @@
 # Patches
 
-> Generated from `patches-list.json` - **v1.10.0** (`master`) - **8 patches** across **2 apps** - back to [README](README.md)
+> Generated from `patches-list.json` - **v1.10.1** (`master`) - **8 patches** across **2 apps** - back to [README](README.md)
 
 ---
 
@@ -11,7 +11,7 @@
 | Patch | Details |
 |---|---|
 | **Disable tamper guard** | Neutralizes the LuckyPatcher/signature guard so the re-signed app does not kill itself on launch. Does not grant items or currency. |
-| **Play offline (guest)** | Disables Play Games sign-in plus the AdMob/AppLovin init providers so the game runs fully offline as guest: no SDK ad loading, no login. Rewards come from the local Skip patches. Does not grant items or currency. |
+| **Play offline (guest)** | Disables Play Games sign-in so the game runs as guest without a Google login. Leaves the ads SDKs initializable so the local Skip patches can complete the reward flow. Does not grant items or currency. |
 | **Skip AdMob rewarded ads** | Completes the AdMob rewarded flow locally so the requested reward is granted without loading or playing an ad. Pairs with Skip rewarded ads (AppLovin MAX); IAP purchases still require real payment. |
 | **Skip decagon rewarded ads** | Completes the decagon AdMob rewarded flow locally so the requested reward is granted without loading or playing an ad. Pairs with Skip AdMob rewarded ads; IAP purchases still require real payment. |
 | **Skip rewarded ads** | Completes the rewarded-video flow locally so the requested reward is granted without playing an ad. No ad-network impression or revenue is synthesized; IAP purchases still require real payment. |

@@ -19,7 +19,7 @@ Choose a supported app version, select the patches you want and patch a clean AP
 ## Patches
 
 <!-- PATCHES_START -->
-> **[v1.10.0](https://github.com/fynnaly/test-morphe-patch/releases/tag/v1.10.0)**&nbsp;&nbsp;&middot;&nbsp;&nbsp;`master`&nbsp;&nbsp;&middot;&nbsp;&nbsp;**8 patches** across **2 apps**&nbsp;&nbsp;&middot;&nbsp;&nbsp;[Full details](PATCHES.md)
+> **[v1.10.1](https://github.com/fynnaly/test-morphe-patch/releases/tag/v1.10.1)**&nbsp;&nbsp;&middot;&nbsp;&nbsp;`master`&nbsp;&nbsp;&middot;&nbsp;&nbsp;**8 patches** across **2 apps**&nbsp;&nbsp;&middot;&nbsp;&nbsp;[Full details](PATCHES.md)
 
 | # | App | Patches | Version | Package |
 |---|---|---|---|---|

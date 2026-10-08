@@ -1,6 +1,6 @@
 {
   "NOTE": "Do NOT manually edit this file. This file is automatically updated when semantic release (release.yml) runs. Manually editing this file can break your releases and break third party tools that use this file.",
-  "version": "1.10.0",
+  "version": "1.10.1",
   "patches": [
     {
       "name": "Disable tamper guard",
@@ -123,7 +123,7 @@
     },
     {
       "name": "Play offline (guest)",
-      "description": "Disables Play Games sign-in plus the AdMob/AppLovin init providers so the game runs fully offline as guest: no SDK ad loading, no login. Rewards come from the local Skip patches. Does not grant items or currency.",
+      "description": "Disables Play Games sign-in so the game runs as guest without a Google login. Leaves the ads SDKs initializable so the local Skip patches can complete the reward flow. Does not grant items or currency.",
       "default": true,
       "dependencies": [
         "ResourcePatch"

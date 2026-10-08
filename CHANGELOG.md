@@ -1,3 +1,9 @@
+## [1.10.1](https://github.com/fynnaly/test-morphe-patch/compare/v1.10.0...v1.10.1) (2026-10-08)
+
+### 🐛 Bug Fixes
+
+* **botworld:** keep ads SDK init so game reaches patched bridges ([091174d](https://github.com/fynnaly/test-morphe-patch/commit/091174dbfac358cdf583b8374029c84876716fd5))
+
 ## [1.10.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.9.0...v1.10.0) (2026-10-08)
 
 ### ✨ New Features

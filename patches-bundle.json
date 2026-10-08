@@ -1,7 +1,7 @@
 {
-  "created_at": "2026-10-08T07:29:36",
-  "description": "## [1.10.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.9.0...v1.10.0) (2026-10-08)\n\n### ✨ New Features\n\n* **botworld:** complete ad load locally so game reaches reward path ([9642562](https://github.com/fynnaly/test-morphe-patch/commit/9642562fc3b5d169b87b14947fa18066c9584a9d))",
-  "download_url": "https://github.com/fynnaly/test-morphe-patch/releases/download/v1.10.0/patches-1.10.0.mpp",
+  "created_at": "2026-10-08T08:41:04",
+  "description": "## [1.10.1](https://github.com/fynnaly/test-morphe-patch/compare/v1.10.0...v1.10.1) (2026-10-08)\n\n### 🐛 Bug Fixes\n\n* **botworld:** keep ads SDK init so game reaches patched bridges ([091174d](https://github.com/fynnaly/test-morphe-patch/commit/091174dbfac358cdf583b8374029c84876716fd5))",
+  "download_url": "https://github.com/fynnaly/test-morphe-patch/releases/download/v1.10.1/patches-1.10.1.mpp",
   "signature_download_url": "",
-  "version": "1.10.0"
+  "version": "1.10.1"
 }
