@@ -1,7 +1,6 @@
 package app.template.patches.botworld.rewards
 
 import app.morphe.patcher.Fingerprint
-import app.morphe.patcher.extensions.InstructionExtensions.instructions
 import app.morphe.patcher.patch.PatchException
 import app.morphe.patcher.patch.bytecodePatch
 import app.template.patches.shared.Constants.BOTWORLD_COMPATIBILITY
@@ -37,8 +36,8 @@ import com.android.tools.smali.dexlib2.iface.reference.TypeReference
 private const val PUBLIC = "Lcom/applovin/mediation/ads/MaxRewardedAd;"
 private const val IMPL = "Lcom/applovin/impl/mediation/ads/MaxFullscreenAdImpl;"
 private const val REWARDED_IMPL = "Lcom/applovin/impl/mediation/ads/MaxRewardedAdImpl;"
-private const val WRAPPER = "Lcom/applovin/impl/mediation/ads/MaxRewardedAdImpl$b;"
-private const val BASE_WRAPPER = "Lcom/applovin/impl/mediation/ads/MaxFullscreenAdImpl$b;"
+private const val WRAPPER = "Lcom/applovin/impl/mediation/ads/MaxRewardedAdImpl\$b;"
+private const val BASE_WRAPPER = "Lcom/applovin/impl/mediation/ads/MaxFullscreenAdImpl\$b;"
 private const val SYNTH_AD = "Lcom/applovin/impl/u3;"
 private const val REWARD_FACTORY = "Lcom/applovin/impl/mediation/MaxRewardImpl;"
 private const val REWARDED_FORMAT = "Lcom/applovin/mediation/MaxAdFormat;"
