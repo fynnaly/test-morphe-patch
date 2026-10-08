@@ -1,3 +1,9 @@
+## [1.10.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.9.0...v1.10.0) (2026-10-08)
+
+### ✨ New Features
+
+* **botworld:** complete ad load locally so game reaches reward path ([9642562](https://github.com/fynnaly/test-morphe-patch/commit/9642562fc3b5d169b87b14947fa18066c9584a9d))
+
 ## [1.9.0](https://github.com/fynnaly/test-morphe-patch/compare/v1.8.0...v1.9.0) (2026-10-08)
 
 ### ✨ New Features
